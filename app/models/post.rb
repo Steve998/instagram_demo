@@ -25,7 +25,7 @@ class Post < ActiveRecord::Base
   end
 
   def like_status
-    if post_likes.any?
+    if post_likes.count > 0
       result = post_likes.limit(3).collect{|pl| pl.user.username}.join(', ')
       result += " and #{post_likes.count - 3} others" if post_likes.count > 3
       result += ' likes this'
