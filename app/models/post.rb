@@ -25,9 +25,13 @@ class Post < ActiveRecord::Base
   end
 
   def like_status
-    result = post_likes.limit(3).collect{|pl| pl.user.username}.join(', ')
-    result += " and #{post_likes.count - 3} others" if post_likes.count > 3
-    result += ' likes this'
+    if post_likes.count > 0
+      result = post_likes.limit(3).collect{|pl| pl.user.username}.join(', ')
+      result += " and #{post_likes.count - 3} others" if post_likes.count > 3
+      result += ' likes this'
+    else
+      result = ""
+    end
     return result
   end
 end
